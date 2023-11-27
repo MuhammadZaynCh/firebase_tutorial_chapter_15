@@ -21,9 +21,19 @@ class _PostScreenState extends State<PostScreen> {
   final auth = FirebaseAuth.instance;
   final ref = FirebaseDatabase.instance.ref('Posts');
   final searchFilter = TextEditingController();
+  final editController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(items: const [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.confirmation_number_sharp),
+            label: 'Settings'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.open_in_new_rounded),
+          label: 'Open Dialog',
+        ),
+      ]),
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         automaticallyImplyLeading: false,
@@ -80,17 +90,14 @@ class _PostScreenState extends State<PostScreen> {
             child: TextFormField(
               controller: searchFilter,
               decoration: const InputDecoration(
-                labelText: 'Search',
-                border: OutlineInputBorder()
-              ),
-              onChanged: (String value){
-                setState(() {
-                });
+                  labelText: 'Search', border: OutlineInputBorder()),
+              onChanged: (String value) {
+                setState(() {});
               },
             ),
           ),
           const Divider(
-            color: Colors.red,
+            color: Colors.green,
             thickness: .8,
           ),
           Expanded(
@@ -98,23 +105,71 @@ class _PostScreenState extends State<PostScreen> {
                 query: ref,
                 itemBuilder: (context, snapshot, animation, index) {
                   final title = snapshot.child('title').value.toString();
-                  
-                  if(searchFilter.text.isEmpty){
+
+                  if (searchFilter.text.isEmpty) {
+                    return ListTile(
+                      title: Text(snapshot.child('title').value.toString()),
+                      subtitle: Text('ID: ${snapshot.child('id').value.toString()}'),
+                      trailing: PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                                PopupMenuItem(
+                                    value: 1,
+                                    child: ListTile(
+                                      onTap: (){
+                                        Navigator.pop(context);
+                                        showPostDialog(title, snapshot.child('id').value.toString());
+                                      },
+                                      leading: const Icon(Icons.edit),
+                                      title: const Text('Edit'),
+                                    )),
+                                PopupMenuItem(
+                                    value: 1,
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                      ref.child(snapshot.child('id').value.toString()).remove();
+                                    },
+                                    child: const ListTile(
+                                      leading: Icon(Icons.delete),
+                                      title: Text('Delete'),
+                                    )),
+                              ]),
+                    );
+                  } else if (title
+                      .toLowerCase()
+                      .contains(searchFilter.text.toLowerCase())) {
                     return ListTile(
                       title: Text(snapshot.child('title').value.toString()),
                       subtitle:
-                      Text('ID: ${snapshot.child('id').value.toString()}'),
+                          Text('ID: ${snapshot.child('id').value.toString()}'),
+                      trailing: PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                                value: 1,
+                                child: ListTile(
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                    showPostDialog(title, snapshot.child('id').value.toString());
+                                  },
+                                  leading: const Icon(Icons.edit),
+                                  title: const Text('Edit'),
+                                )),
+                            PopupMenuItem(
+                                value: 2,
+                                onTap: (){
+                                  Navigator.pop(context);
+                                  ref.child(snapshot.child('id').value.toString()).remove();
+                                },
+                                child: const ListTile(
+                                  leading: Icon(Icons.delete),
+                                  title: Text('Delete'),
+                                )),
+                          ]),
                     );
-                  }else if (title.toLowerCase().contains(searchFilter.text.toLowerCase())){
-                    return ListTile(
-                      title: Text(snapshot.child('title').value.toString()),
-                      subtitle:
-                      Text('ID: ${snapshot.child('id').value.toString()}'),
-                    );
-                  }else{
+                  } else {
                     return Container();
                   }
-                  
                 }),
           )
         ],
@@ -126,5 +181,36 @@ class _PostScreenState extends State<PostScreen> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future<void> showPostDialog(String title , String id) async {
+    editController.text = title;
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Update'),
+            content: TextField(
+              controller: editController,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                     Navigator.pop(context);
+                  },
+                  child: const Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    ref.child(id).update({'title' : editController.text.toString()}).then((value){
+                      Utils().toastMessage('Post Edited');
+                    }).onError((error, stackTrace){
+                      Utils().toastMessage(error.toString());
+                    });
+                  },
+                  child: const Text('Update')),
+            ],
+          );
+        });
   }
 }

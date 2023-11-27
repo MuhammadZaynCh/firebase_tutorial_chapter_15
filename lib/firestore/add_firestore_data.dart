@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 
 
 
-class AddPosts extends StatefulWidget {
+class AddFirestoreData extends StatefulWidget {
   static const String id = 'Add_posts';
-  const AddPosts({super.key});
+  const AddFirestoreData({super.key});
 
   @override
-  State<AddPosts> createState() => _AddPostsState();
+  State<AddFirestoreData> createState() => _AddFirestoreDataState();
 }
 
-class _AddPostsState extends State<AddPosts> {
+class _AddFirestoreDataState extends State<AddFirestoreData> {
 
   bool loading = false ;
   final firebaseRef = FirebaseDatabase.instance.ref('Posts');
@@ -23,7 +23,7 @@ class _AddPostsState extends State<AddPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Posts'),
+        title: const Text('Add Firestore Data'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -34,10 +34,10 @@ class _AddPostsState extends State<AddPosts> {
               minLines: 1,
               controller: postController,
               decoration: const InputDecoration(
-                hintText: 'What is in Your Mind?',
-                border: OutlineInputBorder(
+                  hintText: 'What is in Your Mind?',
+                  border: OutlineInputBorder(
 
-                )
+                  )
               ),
             ),
             const SizedBox(
@@ -45,17 +45,17 @@ class _AddPostsState extends State<AddPosts> {
             ),
             RoundButton(
                 title: 'Post',
-                  isLoading: loading,
+                isLoading: loading,
                 whenTaped: (){
                   setState(() {
                     loading = true ;
                   });
                   String id = DateTime.now().microsecondsSinceEpoch.toString() ;
                   firebaseRef.child(id).set(
-                    {
-                      'id' : id,
-                      'title' : postController.text
-                    }
+                      {
+                        'id' : id,
+                        'title' : postController.text
+                      }
                   ).then((value){
                     setState(() {
                       Utils().toastMessage('Posted');
@@ -67,7 +67,7 @@ class _AddPostsState extends State<AddPosts> {
                       loading = false ;
                     });
                   });
-            })
+                })
           ],
         ),
       ),

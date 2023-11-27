@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return const Scaffold(
       body: Center(
-        child: Text('Firebase Tutorial base App'),
+        child: Text('Firebase Tutorial App'),
       ),
     );
   }

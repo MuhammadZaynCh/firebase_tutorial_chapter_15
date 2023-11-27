@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_tutorials_chapter_15/firestore/firestore_list_screen.dart';
 import 'package:firebase_tutorials_chapter_15/ui/login_screen.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,7 @@ class SplashServices{
       Timer(
           const Duration(seconds: 3),
               () => Navigator.pushNamed(
-              context, PostScreen.id)
+              context, FirestoreListScreen.id)
       );
     }else{
       Timer(
