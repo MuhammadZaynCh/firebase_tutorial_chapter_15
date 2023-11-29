@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/add_posts.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
-import 'package:firebase_tutorials_chapter_15/ui/login_screen.dart';
+import 'package:firebase_tutorials_chapter_15/firestore/add_firestore_data.dart';
+import 'package:firebase_tutorials_chapter_15/firestore/firestore_list_screen.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatefulWidget {
@@ -25,13 +24,29 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(items: const [
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int){
+          Navigator.pushNamed(
+              context, FirestoreListScreen.id);
+        },
+          items: [
         BottomNavigationBarItem(
-            icon: Icon(Icons.confirmation_number_sharp),
-            label: 'Settings'),
+            icon: InkWell(
+              onTap: (){
+                Navigator.pushNamed(
+                    context, AddFirestoreData.id);
+              },
+                child: const Icon(Icons.post_add)),
+            label: 'Add Firestore Post'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.open_in_new_rounded),
-          label: 'Open Dialog',
+          icon: InkWell(
+            onTap: (){
+              Navigator.pushNamed(
+                  context, FirestoreListScreen.id);
+            },
+              child: const Icon(Icons.open_in_new_rounded)),
+          label: 'Firestore List',
+          backgroundColor: Colors.deepPurple
         ),
       ]),
       appBar: AppBar(
@@ -114,7 +129,6 @@ class _PostScreenState extends State<PostScreen> {
                           icon: const Icon(Icons.more_vert),
                           itemBuilder: (context) => [
                                 PopupMenuItem(
-                                    value: 1,
                                     child: ListTile(
                                       onTap: (){
                                         Navigator.pop(context);
@@ -124,7 +138,6 @@ class _PostScreenState extends State<PostScreen> {
                                       title: const Text('Edit'),
                                     )),
                                 PopupMenuItem(
-                                    value: 1,
                                     onTap: (){
                                       Navigator.pop(context);
                                       ref.child(snapshot.child('id').value.toString()).remove();

@@ -36,8 +36,8 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
               const SizedBox(
                 height: 20,
               ),
-              Column(
-                children: const [
+              const Column(
+                children: [
 
                   Text('We will send you a 6 digits one time Code on this mobile number.',
                   style: TextStyle(

@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/button_screen.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 
 class AddFirestoreData extends StatefulWidget {
-  static const String id = 'Add_posts';
+  static const String id = 'add_firestore_data';
   const AddFirestoreData({super.key});
 
   @override
@@ -16,7 +16,7 @@ class AddFirestoreData extends StatefulWidget {
 class _AddFirestoreDataState extends State<AddFirestoreData> {
 
   bool loading = false ;
-  final firebaseRef = FirebaseDatabase.instance.ref('Posts');
+  final firestore = FirebaseFirestore.instance.collection('Users');
   final postController = TextEditingController();
 
   @override
@@ -50,22 +50,20 @@ class _AddFirestoreDataState extends State<AddFirestoreData> {
                   setState(() {
                     loading = true ;
                   });
-                  String id = DateTime.now().microsecondsSinceEpoch.toString() ;
-                  firebaseRef.child(id).set(
-                      {
-                        'id' : id,
-                        'title' : postController.text
-                      }
-                  ).then((value){
+                  String documentationID = DateTime.now().millisecondsSinceEpoch.toString();
+                  firestore.doc(documentationID).set({
+                    'title' : postController.text.toString(),
+                    'id' : documentationID,
+                  }).then((value){
                     setState(() {
-                      Utils().toastMessage('Posted');
                       loading = false ;
                     });
+                    Utils().toastMessage('Firestore Data Posted');
                   }).onError((error, stackTrace){
-                    Utils().toastMessage(error.toString());
                     setState(() {
                       loading = false ;
                     });
+                    Utils().toastMessage(error.toString());
                   });
                 })
           ],

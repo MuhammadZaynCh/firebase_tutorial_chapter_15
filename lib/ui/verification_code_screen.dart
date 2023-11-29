@@ -41,8 +41,8 @@ class _VerifyCodeState extends State<VerifyCode> {
               const SizedBox(
                 height: 20,
               ),
-              Column(
-                children: const [
+              const Column(
+                children: [
                   Text('Enter code received from SMS',
                     style: TextStyle(
                         fontWeight: FontWeight.w600,

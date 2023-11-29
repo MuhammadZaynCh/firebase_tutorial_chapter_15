@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/posts_screen.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
-import 'package:firebase_tutorials_chapter_15/ui/login_screen.dart';
 import 'package:firebase_tutorials_chapter_15/ui/login_with_phone_number.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/button_screen.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';

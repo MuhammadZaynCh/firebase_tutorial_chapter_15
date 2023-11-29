@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/add_posts.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/posts_screen.dart';
+import 'package:firebase_tutorials_chapter_15/firestore/add_firestore_data.dart';
+import 'package:firebase_tutorials_chapter_15/firestore/firestore_list_screen.dart';
 
 import 'package:firebase_tutorials_chapter_15/ui/login_with_phone_number.dart';
 import 'package:firebase_tutorials_chapter_15/ui/signup_screen.dart';
@@ -26,17 +28,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        errorColor: Colors.red
       ),
       initialRoute: SplashScreen.id,
       routes: {
-        SplashScreen.id : (context) => SplashScreen(),
+        SplashScreen.id : (context) => const SplashScreen(),
         // LoginScreen.id : (context) => LoginScreen(),
         SignInScreen.id : (context) => SignInScreen(),
         SignUpScreen.id : (context) => SignUpScreen(),
-        LoginWithPhoneNumber.id : (context) => LoginWithPhoneNumber(),
-        PostScreen.id : (context) => PostScreen(),
-        AddPosts.id : (context) => AddPosts(),
+        LoginWithPhoneNumber.id : (context) => const LoginWithPhoneNumber(),
+        PostScreen.id : (context) => const PostScreen(),
+        AddPosts.id : (context) => const AddPosts(),
+        FirestoreListScreen.id : (context) => const FirestoreListScreen(),
+        AddFirestoreData.id : (context) => const AddFirestoreData(),
       },
     );
   }
