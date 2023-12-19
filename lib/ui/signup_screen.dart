@@ -3,7 +3,7 @@ import 'package:firebase_tutorials_chapter_15/Posts/posts_screen.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
 import 'package:firebase_tutorials_chapter_15/ui/login_with_phone_number.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/button_screen.dart';
-import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';
+import 'package:firebase_tutorials_chapter_15/ui/signIn_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

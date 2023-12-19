@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/posts_screen.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
+import 'package:firebase_tutorials_chapter_15/ui/forgotten_password.dart';
 import 'package:firebase_tutorials_chapter_15/ui/signup_screen.dart';
 import 'package:firebase_tutorials_chapter_15/widgets/button_screen.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,18 @@ class SignInScreen extends StatelessWidget {
                     },
                   );
                 }),
+
+            SizedBox(
+              height: 10,
+            ),
+
+            TextButton(onPressed: (){
+              Navigator.pushNamed(
+                  context, ForgotPasswordScreen.id
+              );
+            },
+                child: const Text('Forgotten Password?')
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

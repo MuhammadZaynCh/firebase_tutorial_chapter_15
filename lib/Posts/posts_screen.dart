@@ -5,7 +5,7 @@ import 'package:firebase_tutorials_chapter_15/Posts/add_posts.dart';
 import 'package:firebase_tutorials_chapter_15/firebase_services/utils.dart';
 import 'package:firebase_tutorials_chapter_15/firestore/add_firestore_data.dart';
 import 'package:firebase_tutorials_chapter_15/firestore/firestore_list_screen.dart';
-import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';
+import 'package:firebase_tutorials_chapter_15/ui/signIn_screen.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatefulWidget {

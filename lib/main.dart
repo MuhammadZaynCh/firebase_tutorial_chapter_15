@@ -3,12 +3,13 @@ import 'package:firebase_tutorials_chapter_15/Posts/add_posts.dart';
 import 'package:firebase_tutorials_chapter_15/Posts/posts_screen.dart';
 import 'package:firebase_tutorials_chapter_15/firestore/add_firestore_data.dart';
 import 'package:firebase_tutorials_chapter_15/firestore/firestore_list_screen.dart';
+import 'package:firebase_tutorials_chapter_15/ui/forgotten_password.dart';
 
 import 'package:firebase_tutorials_chapter_15/ui/login_with_phone_number.dart';
 import 'package:firebase_tutorials_chapter_15/ui/signup_screen.dart';
 import 'package:firebase_tutorials_chapter_15/ui/splash_screen.dart';
 
-import 'package:firebase_tutorials_chapter_15/widgets/signIn_screen.dart';
+import 'package:firebase_tutorials_chapter_15/ui/signIn_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         AddPosts.id : (context) => const AddPosts(),
         FirestoreListScreen.id : (context) => const FirestoreListScreen(),
         AddFirestoreData.id : (context) => const AddFirestoreData(),
+        ForgotPasswordScreen.id : (context) => ForgotPasswordScreen(),
       },
     );
   }
